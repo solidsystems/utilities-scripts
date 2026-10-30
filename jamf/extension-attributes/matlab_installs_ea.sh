@@ -5,18 +5,14 @@
 #
 # Reports every MATLAB*.app on the machine, in any location (/Applications,
 # ~/Applications, Homebrew --appdir, ad-hoc extracts), with its version, plus
-# Homebrew caskroom entries.
+# Homebrew caskroom entries. For evidence of past use (prefs left behind after
+# uninstall), see matlab_usage_ea.sh.
 #
 # Local testing:
-#   sudo ./matlab_installs_ea.sh                  # same view as the jamf binary (root)
-#   sudo ./matlab_installs_ea.sh --include-usage  # also list per-user MathWorks prefs
-#                                                 # (evidence of past use, even if uninstalled)
+#   sudo ./matlab_installs_ea.sh
 # Run as root: without sudo, other users' home folders are unreadable.
 # The jamf binary needs Full Disk Access (PPPC) for find to see
 # Desktop/Documents/Downloads.
-
-include_usage=false
-[ "$1" = "--include-usage" ] && include_usage=true
 
 apps=$(
   {
@@ -43,11 +39,5 @@ done <<< "$apps"
 for c in /opt/homebrew/Caskroom/matlab* /usr/local/Caskroom/matlab*; do
   [ -e "$c" ] && out+="brew-cask: ${c}"$'\n'
 done
-
-if $include_usage; then
-  for p in /Users/*/Library/Application\ Support/MathWorks/MATLAB/*; do
-    [ -d "$p" ] && out+="prefs: ${p}"$'\n'
-  done
-fi
 
 echo "<result>${out%$'\n'}</result>"
