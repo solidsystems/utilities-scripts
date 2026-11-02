@@ -24,7 +24,10 @@
   ./Audit-WorkIQConsent.ps1            # results also written to .\workiq-consent-audit.csv
   ./Audit-WorkIQConsent.ps1 -UseDeviceCode
 #>
-param([switch]$UseDeviceCode)
+param(
+  [switch]$UseDeviceCode,
+  [string]$OutputDirectory = (Get-Location).Path
+)
 
 $cp = @{ Scopes = 'Application.Read.All','Directory.Read.All'; NoWelcome = $true }
 if ($UseDeviceCode) { $cp.UseDeviceCode = $true }
@@ -122,7 +125,8 @@ Get-MgOauth2PermissionGrant -Filter "resourceId eq '$($graphSp.Id)'" -All |
   Where-Object { $_.ConsentType -eq 'AllPrincipals' -and ($_.Scope -split ' ') -contains 'Mail.Read' } |
   ForEach-Object { Write-Host "  $(SpName $_.ClientId)" -ForegroundColor Gray }
 
-$csv = Join-Path (Get-Location) 'workiq-consent-audit.csv'
+New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
+$csv = Join-Path $OutputDirectory 'workiq-consent-audit.csv'
 $rows | Export-Csv $csv -NoTypeInformation
 Write-Host "`nWrote $csv" -ForegroundColor Green
 Disconnect-MgGraph | Out-Null
