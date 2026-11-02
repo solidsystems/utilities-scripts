@@ -78,7 +78,7 @@ Work through these in order. Each row is a hypothesis, the file that tests it, a
 - M365 admin center → **Settings → Integrated apps**
 - config.office.com → cloud policy *"Allow the use of connected experiences in Office that analyze content"*
 
-**For a Microsoft ticket, attach:** the UPN, tenant ID, the timestamps of the iOS (working) and web (failing) attempts, the `ThreadId`s from `copilot-interactions.csv`, request or conversation IDs from browser DevTools, and the results of rows 1–3.
+**For a Microsoft ticket,** start from [`support-ticket-template.md`](support-ticket-template.md), and attach: the UPN, tenant ID, the timestamps of the iOS (working) and web (failing) attempts, the `ThreadId`s from `copilot-interactions.csv`, request or conversation IDs from browser DevTools, and the results of rows 1–3.
 
 ## Background and decisions
 
