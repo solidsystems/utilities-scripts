@@ -13,7 +13,7 @@ Scripts and helper utilities
 
 ### Copilot
 
-Read-only toolkit for investigating "Copilot can't access my email". Start with [`m365/copilot/README.md`](m365/copilot/README.md) (download, run, interpret).
+Read-only toolkit for investigating "Copilot can't access my email". Start with [`m365/copilot/README.md`](m365/copilot/README.md) (download, run, interpret). A paste-ready Microsoft support ticket draft is in [`m365/copilot/support-ticket-template.md`](m365/copilot/support-ticket-template.md).
 
 - [`m365/copilot/Invoke-CopilotMailInvestigation.ps1`](m365/copilot/Invoke-CopilotMailInvestigation.ps1) — one-command wrapper: checks prerequisites, runs both audits below into one folder with a transcript, and zips it for hand-off.
 - [`m365/copilot/Audit-WorkIQConsent.ps1`](m365/copilot/Audit-WorkIQConsent.ps1) — **read-only** audit of Work IQ / MCP server provisioning. Shows what Microsoft's [`Enable-WorkIQToolsForTenant.ps1`](https://github.com/microsoft/work-iq/blob/main/scripts/Enable-WorkIQToolsForTenant.ps1) would create or grant, without changing anything: which of the 11 Work IQ service principals exist, the Work IQ CLI's consent per resource (scopes it would add, and existing scopes it would drop because it overwrites the scope string), every client app with consent to each MCP server (consent type and user), and which clients hold tenant-wide `Mail.Read`. Writes `workiq-consent-audit.csv`. Needs the `Microsoft.Graph` module and Global Reader.
